@@ -5,6 +5,7 @@ int framerate = 60;
 
 float beatInterval, previousTime;
 
+PolyVisualizer viz;
 SqrOsc osc;
 Env env;
 
@@ -22,15 +23,19 @@ void setup() {
   env  = new Env(this);
   
   instrument = new SquareInst(osc, env, 0.002, 0.00, 0.1);
+  viz = new PolyVisualizer(4, 100);
 }
 
 void draw() {
-  background(0);
-  
+  background(255);
+
   float m = millis();
+  
+  viz.draw(width / 2, height / 2);
   
   if (m - previousTime >= beatInterval) {
     instrument.trigger(221);
+    viz.advance();
     previousTime = m;
   }
 }
