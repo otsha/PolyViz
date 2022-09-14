@@ -1,9 +1,7 @@
 class SquareInst extends Instrument {
-  SqrOsc oscillator;
   
   SquareInst(SqrOsc osc, Env env, float a, float s, float r) {
-    super(env, a, s, r);
-    oscillator = osc;
+    super(osc, env, a, s, r);
   }
   
   public void trigger(float freq) {
