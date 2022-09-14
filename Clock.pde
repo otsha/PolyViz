@@ -1,27 +1,24 @@
 class Clock {
   private int bpm;
-  private float previousTime, mainTime;
-  private ArrayList<Sequencer> sequencers;
+  private float previousTime;
+  private Sequencer[] sequencers;
 
-  Clock(float initTime, int bpm, ArrayList<Sequencer> sequencers) {
+  Clock(float initTime, int bpm, Sequencer[] sequencers) {
     this.previousTime = initTime;
     this.bpm = bpm;
     this.sequencers = sequencers;
   }
-  
-  public void setTime(float m) {
-    this.mainTime = m;
-  }
 
   public void update() {
-    float stepInterval = (frameRate * 1.0 / this.bpm) * 1000.0;
+    float stepInterval = (60 * 1.0 / (this.bpm * 16)) * 1000.0;
 
-    if (this.mainTime - this.previousTime >= stepInterval) {
-      
+    if (millis() - this.previousTime >= stepInterval) {
+
       for (Sequencer s : this.sequencers) {
-        s.step(); 
+        s.signal(this.bpm);
       }
-      this.previousTime = this.mainTime;
+      
+      this.previousTime = millis();
     }
   }
 }

@@ -12,4 +12,5 @@ abstract class Instrument {
   }
 
   public abstract void trigger(float freq);
+  public abstract void stop();
 }

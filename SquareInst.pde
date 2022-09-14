@@ -9,4 +9,8 @@ class SquareInst extends Instrument {
     this.oscillator.freq(freq);
     this.envelope.play(this.oscillator, this.attack, this.sustain, 0.5, this.release);
   }
+  
+  public void stop() {
+    this.oscillator.stop();
+  }
 }
