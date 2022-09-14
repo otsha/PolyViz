@@ -10,6 +10,11 @@ class Sequencer {
     this.pTime = millis();
   }
 
+  public void step() {
+    this.instrument.trigger(221);
+    this.visualizer.advance();
+  }
+
   private void update() {
     this.stepInterval = (frameRate * 1.0 / bpm) * 1000.0;
     float m = millis();
@@ -21,8 +26,12 @@ class Sequencer {
     }
   }
 
-  public void drawAndUpdate() {
+  public void draw() {
     this.visualizer.draw(width / 2, height / 2);
+  }
+
+  public void drawAndUpdate() {
+    this.draw();
     this.update();
   }
 }

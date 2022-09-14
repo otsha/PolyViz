@@ -8,6 +8,7 @@ float initTime;
 SqrOsc osc, osc2;
 Env env, env2;
 
+Clock clock;
 Instrument instr, instr2;
 PolyVisualizer viz, viz2;
 Sequencer seq, seq2;
@@ -32,11 +33,23 @@ void setup() {
   instr2 = new SquareInst(osc2, env2, 0.002, 0.00, 0.1);
   viz2 = new PolyVisualizer(5, 150);
   seq2 = new Sequencer(instr2, viz2, bpm);
+  
+  // init clock
+  ArrayList<Sequencer> sequencers = new ArrayList<Sequencer>();
+  sequencers.add(seq);
+  sequencers.add(seq2);
+  clock = new Clock(initTime, bpm, sequencers);
 }
 
 void draw() {
   background(255);
+    
+  seq.draw();
+  seq2.draw();
   
-  seq.drawAndUpdate();
-  seq2.drawAndUpdate();
+  thread("updateClock");
+}
+
+void updateClock() {
+  clock.update(); 
 }
