@@ -24,16 +24,16 @@ void setup() {
   env  = new Env(this);
 
   instr = new SquareInst(osc, env, 0.002, 0.00, 0.1);
-  viz = new PolyVisualizer(3, 100);
-  seq = new Sequencer(instr, viz, 16);
+  viz = new PolyVisualizer(4, 100);
+  seq = new Sequencer(instr, viz, 4, 1.0/4.0);
 
   // init 2nd track
   osc2 = new SqrOsc(this);
   env2  = new Env(this);
 
   instr2 = new SquareInst(osc2, env2, 0.002, 0.00, 0.1);
-  viz2 = new PolyVisualizer(4, 150);
-  seq2 = new Sequencer(instr2, viz2, 8);
+  viz2 = new PolyVisualizer(8, 150);
+  seq2 = new Sequencer(instr2, viz2, 8, 1.0/8.0);
   
   // init clock
   Sequencer[] sequencers = { seq, seq2 };

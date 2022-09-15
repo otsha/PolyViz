@@ -1,16 +1,19 @@
-class Sequencer {
+class Sequencer { //<>//
   private int steps, currentStep;
-  private double counter;
+  private float div;
+  private float counter, t;
   private Instrument instrument;
   private PolyVisualizer visualizer;
   private boolean playing;
 
-  Sequencer(Instrument i, PolyVisualizer v, int nOfSteps) {
+  Sequencer(Instrument i, PolyVisualizer v, int nOfSteps, float division) {
     this.instrument = i;
     this.visualizer = v;
     this.steps = nOfSteps;
+    this.div = division;
     this.currentStep = 1;
     this.counter = 0;
+    this.t = 8;
     this.playing = false;
   }
 
@@ -27,10 +30,10 @@ class Sequencer {
     }
   }
 
-  public void signal(int bpm) { //<>//
-    float increment = lerp(0.0, 1.0 * bpm, 1.0 / this.steps); //<>// //<>// //<>// //<>// //<>//
-    this.counter += increment; //<>// //<>// //<>//
-  } //<>//
+  public void signal(int bpm, int tpb) {
+    this.t = (tpb * bpm * div);
+    this.counter += tpb;
+  }
 
   public void toggle() {
     this.playing = !this.playing;
@@ -42,12 +45,12 @@ class Sequencer {
   public void draw() {
     this.visualizer.draw(width / 2, height / 2);
   }
-  
+
   public void drawAndPlay() {
     this.draw();
-    if (this.counter >= bpm) {
+    if (this.counter >= this.t) {
       this.step();
       this.counter = 0;
-    } 
+    }
   }
 }
