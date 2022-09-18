@@ -16,12 +16,12 @@ class Sequencer { //<>//
     this.counter = 0;
     this.t = 8;
     this.playing = false;
-    this.scale = new Scale(220);
+    this.scale = new Scale();
   }
 
   private void step() {
     if (this.playing == true) {
-      this.instrument.trigger(scale.note(round(random(0, 7))));
+      this.instrument.trigger(scale.note(round(random(0, scale.len() - 1))));
       this.visualizer.advance();
 
       if (currentStep < steps) {
