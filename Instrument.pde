@@ -1,4 +1,4 @@
-abstract class Instrument {
+class Instrument {
   Oscillator oscillator;
   Env envelope;
   float attack, sustain, release;
@@ -11,6 +11,13 @@ abstract class Instrument {
     this.release = r;
   }
 
-  public abstract void trigger(float freq);
-  public abstract void stop();
+  public void trigger(float freq) {
+    this.oscillator.play();
+    this.oscillator.freq(freq);
+    this.envelope.play(this.oscillator, this.attack, this.sustain, 0.5, this.release);
+  }
+  
+  public void stop() {
+    this.oscillator.stop();
+  }
 }

@@ -14,8 +14,8 @@ void setup() {
   frameRate(framerate);
 
   // init tracks
-  seq = new Sequencer(this, 75, 4, 1.0/4.0);
-  seq2 = new Sequencer(this, 150, 3, 1.0/3.0);
+  seq = new Sequencer(this, OscType.TRI, 75, 4, 1.0/4.0);
+  seq2 = new Sequencer(this, OscType.SAW, 150, 3, 1.0/3.0);
   
   // init clock
   Sequencer[] sequencers = { seq, seq2 };

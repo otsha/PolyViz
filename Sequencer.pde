@@ -7,11 +7,11 @@ class Sequencer { //<>//
   private boolean playing;
   private Scale scale;
 
-  Sequencer(PApplet app, int vizSize, int nOfSteps, float division) {
+  Sequencer(PApplet app, OscType type, int vizSize, int nOfSteps, float division) {
     this.steps = nOfSteps;
     this.div = division;
 
-    this.instrument = new SquareInst(new SqrOsc(app), new Env(app), 0.002, 0.00, 0.1);
+    this.instrument = new Instrument(initOsc(app, type), new Env(app), 0.002, 0.00, 0.1);
     this.visualizer = new PolyVisualizer(this.steps, vizSize);
     
     this.currentStep = 1;
@@ -19,6 +19,21 @@ class Sequencer { //<>//
     this.t = 8;
     this.playing = false;
     this.scale = new Scale();
+  }
+  
+  private Oscillator initOsc(PApplet app, OscType type) {
+    switch (type) {
+      case SAW:
+        return new SawOsc(app);
+      case SIN:
+        return new SinOsc(app);
+      case SQR:
+        return new SqrOsc(app);
+      case TRI:
+        return new TriOsc(app);
+      default:
+        return new SinOsc(app);
+    }
   }
 
   private void step() {
