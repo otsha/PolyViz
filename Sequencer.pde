@@ -7,11 +7,13 @@ class Sequencer { //<>//
   private boolean playing;
   private Scale scale;
 
-  Sequencer(Instrument i, PolyVisualizer v, int nOfSteps, float division) {
-    this.instrument = i;
-    this.visualizer = v;
+  Sequencer(PApplet app, int vizSize, int nOfSteps, float division) {
     this.steps = nOfSteps;
     this.div = division;
+
+    this.instrument = new SquareInst(new SqrOsc(app), new Env(app), 0.002, 0.00, 0.1);
+    this.visualizer = new PolyVisualizer(this.steps, vizSize);
+    
     this.currentStep = 1;
     this.counter = 0;
     this.t = 8;
