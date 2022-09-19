@@ -6,10 +6,9 @@ int framerate = 60;
 float initTime;
 
 Clock clock;
-Sequencer seq, seq2;
+Sequencer seq, seq2, seq3;
 
-Sequence steps;
-Sequence steps2;
+Sequence steps, steps2, steps3;
 
 void setup() {
   initTime = millis();
@@ -17,28 +16,40 @@ void setup() {
   frameRate(framerate);
 
   Step[] s = {
-    new Step(Note.C, 3, 0.01, 0.0, 0.5),
-    new Step(Note.E, 3),
-    new Step(Note.G, 3),
+    new Step(Note.C, 2, 0.05, 0.0, 1.0),
+    new Step(Note.E, 2, 0.05, 0.0, 1.0),
+    new Step(Note.G, 2, 0.05, 0.0, 1.0),
   };
   steps = new Sequence();
   steps.addAll(s);
 
   Step[] s2 = {
-    new Step(Note.B, 4),
-    new Step(Note.G, 4),
-    new Step(Note.E, 4),
-    new Step(Note.C, 4)
+    new Step(Note.B, 5),
+    new Step(Note.G, 5),
+    new Step(Note.E, 5),
+    new Step(Note.C, 5)
   };
   steps2 = new Sequence();
   steps2.addAll(s2);
 
+  Step[] s3 = {
+    new Step(Note.C, 2, 0.05, 0.0, 1.0),
+    new Step(Note.E, 3, 0.05, 0.0, 1.0),
+    new Step(Note.G, 2, 0.05, 0.0, 1.0),
+    new Step(Note.C, 3, 0.05, 0.0, 1.0),
+
+  };
+  steps3 = new Sequence();
+  steps3.addAll(s3);
+
   // init tracks
-  seq = new Sequencer(this, OscType.SIN, steps, 75, 3, 1.0/3.0);
-  seq2 = new Sequencer(this, OscType.SAW, steps2, 150, 16, 1.0/16.0);
+  seq = new Sequencer(this, OscType.TRI, steps, 75, 4, 1.0/1.0);
+  seq2 = new Sequencer(this, OscType.TRI, steps2, 150, 16, 1.0/16.0);
+  seq3 = new Sequencer(this, OscType.TRI, steps3, 225, 5, 5.0/3.0);
+
 
   // init clock
-  Sequencer[] sequencers = { seq, seq2 };
+  Sequencer[] sequencers = { seq, seq2, seq3 };
   clock = new Clock(initTime, bpm, sequencers);
 }
 
@@ -47,6 +58,7 @@ void draw() {
 
   seq.drawAndPlay();
   seq2.drawAndPlay();
+  seq3.drawAndPlay();
 
   thread("updateClock");
 }
@@ -59,5 +71,6 @@ void keyPressed() {
   if (keyCode == LEFT) {
     seq.toggle();
     seq2.toggle();
+    seq3.toggle();
   }
 }
