@@ -1,20 +1,16 @@
 class Instrument {
   Oscillator oscillator;
   Env envelope;
-  float attack, sustain, release;
 
-  Instrument(Oscillator osc, Env env, float a, float s, float r) {
+  Instrument(Oscillator osc, Env env) {
     this.oscillator = osc;
     this.envelope = env;
-    this.attack = a;
-    this.sustain = s;
-    this.release = r;
   }
 
-  public void trigger(float freq) {
+  public void trigger(Step s) {
     this.oscillator.play();
-    this.oscillator.freq(freq);
-    this.envelope.play(this.oscillator, this.attack, this.sustain, 0.5, this.release);
+    this.oscillator.freq(s.note().oct(s.octave()));
+    this.envelope.play(this.oscillator, s.attack(), s.sustain(), 0.5, s.release());
   }
   
   public void stop() {

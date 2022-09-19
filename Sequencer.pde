@@ -8,7 +8,7 @@ class Sequencer { //<>//
   Sequencer(PApplet app, OscType type, Sequence sequence, int vizSize, int vizPoints, float division) {
     this.div = division;
 
-    this.instrument = new Instrument(initOsc(app, type), new Env(app), 0.002, 0.00, 0.1);
+    this.instrument = new Instrument(initOsc(app, type), new Env(app));
     this.visualizer = new PolyVisualizer(vizPoints, vizSize);
 
     this.counter = 0;
@@ -34,7 +34,7 @@ class Sequencer { //<>//
 
   private void step() {
     if (this.playing == true) {
-      this.instrument.trigger(steps.next().oct(4));
+      this.instrument.trigger(steps.next());
       this.visualizer.advance();
     }
   }

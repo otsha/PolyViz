@@ -1,33 +1,33 @@
 import java.util.LinkedList;
 
 class Sequence {
-  private LinkedList<Note> notes;
+  private LinkedList<Step> steps;
   
   Sequence() {
-    this.notes = new LinkedList<Note>(); 
+    this.steps = new LinkedList<Step>(); 
   }
   
-  public void add(Note note) {
-    this.notes.add(note);
+  public void add(Step step) {
+    this.steps.add(step);
   }
   
-  public void addAll(Note[] newNotes) {
-    for (Note n : newNotes) {
-      this.notes.add(n); 
+  public void addAll(Step[] newSteps) {
+    for (Step n : newSteps) {
+      this.steps.add(n); 
     }
   }
   
-  public Note next() {
-    if (notes.size() > 0) {
-      Note next = this.notes.poll();
-      this.notes.addLast(next);
+  public Step next() {
+    if (steps.size() > 0) {
+      Step next = this.steps.poll();
+      this.steps.addLast(next);
       return next;
     }
     
-    return Note.A;
+    return new Step(Note.A, 0, 0.001, 0.00, 0.1);
   }
   
   public int length() {
-    return this.notes.size(); 
+    return this.steps.size(); 
   }
 }
